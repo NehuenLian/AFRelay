@@ -38,7 +38,7 @@ INVOICE_SERVICE
 │   ├── controllers/
 │   ├── crypto/
 │   ├── payload_builder/
-│   ├── error_handler/
+│   ├── response_errors_handler/
 │   ├── soap_management/
 │   ├── time/
 │   ├── utils/
@@ -68,8 +68,8 @@ Contiene el módulo que firma la solicitud del ticket de acceso utilizando los e
 ### `payload_builder/`
 Contiene el módulo que arma y manipula los diccionarios (`dict`) que necesita la librería Zeep para consumir los servicios SOAP.
 
-### `error_handler/`
-Contiene una función que recibe códigos de error y redirige el procesamiento a controladores especializados que intentan resolver dichos errores de forma automática. Este módulo puede ampliarse a medida que se descubren nuevos tipos de errores.
+### `response_errors_handler/`
+Contiene una función que recibe códigos de error y sus respectivos controladores especializados que intentan resolver dichos errores de forma automática. Este módulo puede ampliarse a medida que se descubren nuevos tipos de errores.
 
 ### `soap_management/`
 Maneja la comunicación con los servicios SOAP de AFIP/ARCA y analiza las respuestas en busca de errores. Los errores suelen presentarse como un array al final de la respuesta.
