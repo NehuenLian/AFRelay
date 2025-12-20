@@ -21,7 +21,7 @@ This system is a web service that acts as middleware between local POS systems a
 
 ## Stateless?
 
-Partially. The service does not store transactional or state information between requests, except for the authentication token which persists in memory for 12 hours (until it needs to be refreshed) and is reused for all invoices issued within that period.
+The service does not store transactional or state information between requests, only the access ticket which persists in memory for 12 hours (until it needs to be refreshed) and is reused for all invoices issued within that period.
 
 ## Project Architecture and Structure
 
