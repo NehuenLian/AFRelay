@@ -83,3 +83,11 @@ def save_xml(root, xml_name: str) -> None:
     tree = etree.ElementTree(root)
     tree.write(path, pretty_print=True, xml_declaration=True, encoding="UTF-8")
     logger.info(f"{xml_name} successfully saved.")
+
+def xml_exists(xml_name: str) -> bool:
+    xml_path = f"service/xml_management/xml_files/{xml_name}"
+
+    if os.path.exists(xml_path):
+        return True
+    else:
+        return False
