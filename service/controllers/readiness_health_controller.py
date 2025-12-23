@@ -1,4 +1,4 @@
-from service.soap_management.soap_client import wsfe_dummy
+from service.soap_client.wsfe import wsfe_dummy
 from service.time.time_management import request_ntp_for_readiness
 from service.utils.convert_to_dict import convert_zeep_object_to_dict
 from service.utils.logger import logger
