@@ -199,7 +199,7 @@ The file `wsfe.py` contains the queries to the SOAP methods of AFIP/ARCA to fetc
 - **Flexible Deployment:**  
   Using Docker is not mandatory. The service can run directly as a script or within any Python environment, as long as the input and output file formats are respected. The protection of credentials (tokens, certificates) is the responsibility of the user or environment administrator.
 
-### Full Lifecycle Flow Represented with Logs (Including Automatic Error Correction)
+### Full Lifecycle Flow Represented with Logs
 
 ```
 2025-08-16 14:49:56,869 - INFO - Starting the invoice request process...
