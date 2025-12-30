@@ -67,6 +67,14 @@ INVOICE_SERVICE
 
 ## Descripción de la arquitectura y los directorios
 
+### `host_certs/`
+Carpeta del host que contiene los certificados, claves privadas y otros archivos criptográficos.  
+Estos archivos se montan en el contenedor como volumen en `app_certs/`.  
+
+### `host_xml/`
+Carpeta del host que contiene los archivos XML necesarios para enviar información a AFIP.  
+Estos archivos se montan en el contenedor como volumen en `app_xml_files/`.  
+
 ### `api/`
 Contiene el endpoint POST que recibe los JSON con información de la venta y de la factura a construir antes de enviarla para su aprobación. También contiene los esquemas de Pydantic para la validación del JSON.
 

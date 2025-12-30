@@ -66,6 +66,14 @@ INVOICE_SERVICE
 
 ## Architecture and Directory Description
 
+### `host_certs/`
+Host folder containing certificates, private keys, and other cryptographic files.  
+These files are mounted into the container as a volume at `app_certs/`.  
+
+### `host_xml/`
+Host folder containing the XML files required to send information to AFIP.  
+These files are mounted into the container as a volume at `app_xml_files/`.  
+
 ### `api/`
 Contains the POST endpoint that receives the JSON with sales and invoice information to be built before sending it for approval. It also contains the Pydantic schemas for JSON validation.
 
