@@ -8,7 +8,7 @@ async def get_last_authorized_info(comp_info: dict) -> dict:
 
     logger.info("Consulting last authorized invoice...")
 
-    token, sign = extract_token_and_sign_from_xml("loginTicketResponse.xml")
+    token, sign = extract_token_and_sign_from_xml()
 
     cuit = comp_info["Cuit"]
     ptovta = comp_info["PtoVta"]

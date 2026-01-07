@@ -8,7 +8,7 @@ from service.xml_management.xml_builder import (
 async def request_invoice_controller(sale_data: dict) -> dict:
 
     logger.info("Generating invoice...")
-    token, sign = extract_token_and_sign_from_xml("loginTicketResponse.xml")
+    token, sign = extract_token_and_sign_from_xml()
     invoice_with_auth = add_auth_to_payload(sale_data, token, sign)
     invoice_result = await fecae_solicitar(invoice_with_auth)
 

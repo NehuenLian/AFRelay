@@ -8,7 +8,7 @@ async def consult_specific_invoice(comp_info: dict) -> dict:
 
     logger.info(f"Consulting info about an specific invoice: CbteNro={comp_info['CbteNro']}")
 
-    token, sign = extract_token_and_sign_from_xml("loginTicketResponse.xml")
+    token, sign = extract_token_and_sign_from_xml()
 
     cuit = comp_info["Cuit"]
     auth = build_auth(token, sign, cuit)
