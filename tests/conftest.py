@@ -58,9 +58,12 @@ def httpserver_fixed_port():
 
 # Initialize zeep client only if httpserver is created
 @pytest_asyncio.fixture
-async def wsfe_manager(httpserver):
+async def wsfe_manager(httpserver_fixed_port):
+    WSFEClientManager.reset_singleton()
 
     afip_wsdl = os.path.join("tests\\mocks", "wsfe_mock.wsdl")
     manager = WSFEClientManager(afip_wsdl)
     yield manager
     await manager.close()
+
+    WSFEClientManager.reset_singleton()
