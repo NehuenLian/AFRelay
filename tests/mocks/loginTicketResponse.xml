@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<loginTicketResponse version="1.0">
+    <header>
+        <source>CN=wsaahomo, O=AFIP, C=AR, SERIALNUMBER=CUIT 33693450239</source>
+        <destination>SERIALNUMBER=CUIT 30740253022, CN=certificadodefinitivo</destination>
+        <uniqueId>3634574819</uniqueId>
+        <generationTime>2026-01-07T02:40:09.235-03:00</generationTime>
+        <expirationTime>2026-01-07T14:40:09.235-03:00</expirationTime>
+    </header>
+    <credentials>
+        <token>fake_token</token>
+        <sign>fake_sign</sign>
+    </credentials>
+<header><source/><destination/><uniqueId/><generationTime/><expirationTime/></header><credentials><token/><sign/></credentials></loginTicketResponse>
