@@ -1,4 +1,4 @@
-# `app_xml/` Folder
+# `app_xml_files/` Folder
 
 This folder is used internally by the web service to access XML files needed to send information.  
 
