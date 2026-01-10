@@ -26,7 +26,7 @@ def build_login_ticket_request(time_provider) -> "etree._Element":
 
     return root
 
-def parse_and_save_loginticketresponse(login_ticket_response: str) -> None:
+def parse_and_save_loginticketresponse(login_ticket_response: str, xml_saver) -> None:
 
     root = etree.fromstring(login_ticket_response.encode("utf-8"))
     header = etree.SubElement(root, "header")
@@ -40,7 +40,7 @@ def parse_and_save_loginticketresponse(login_ticket_response: str) -> None:
     token = etree.SubElement(credentials, "token")
     sign = etree.SubElement(credentials, "sign")
 
-    save_xml(root, "loginTicketResponse.xml")
+    xml_saver(root, "loginTicketResponse.xml")
 
 def extract_token_and_sign_from_xml() -> tuple[str, str]:
 
