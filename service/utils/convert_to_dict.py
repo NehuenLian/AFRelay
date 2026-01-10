@@ -18,7 +18,7 @@ def convert_zeep_object_to_dict(afip_response: object) -> dict:
     return serialized_xml
 
 
-def convert_pydantic_model_to_dict(sale_data: object) -> dict:
+def convert_pydantic_model_to_dict(data: object) -> dict:
     # Convert pydantic model object to dict
-    parsed_data = sale_data.model_dump()
+    parsed_data = data.model_dump()
     return parsed_data
