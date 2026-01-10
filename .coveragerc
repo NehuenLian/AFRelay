@@ -1,0 +1,5 @@
+[run]
+omit =
+    */tests/*
+    */wsdl/*
+    */__init__.py
