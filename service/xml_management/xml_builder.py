@@ -4,7 +4,6 @@ from datetime import datetime, timezone
 from lxml import etree
 
 from config import paths
-from service.time.time_management import generate_ntp_timestamp
 from service.utils.logger import logger
 
 
