@@ -86,19 +86,23 @@ En caso de levantar el servicio sin usar Docker, es necesario instalar la herram
   ```bash
   cd AFRelay
   ```
-3. Levantar FastAPI
+2. Instalar dependencias
+  ```bash
+  pip install -r requirements.txt
+  ```
+4. Levantar FastAPI
   ```bash
   uvicorn service.api.app:app --reload
   ```
-4. Health Check liveness:
+5. Health Check liveness:
   ```bash
   curl -i http://127.0.0.1:8000/health/liveness
   ```
-5. Health Check readiness:
+6. Health Check readiness:
   ```bash
   curl -i http://127.0.0.1:8000/health/readiness
   ```
-6. Ver docs de OpenAPI
+7. Ver docs de OpenAPI
   ```bash
   http://127.0.0.1:8000/docs
   ```

@@ -82,7 +82,11 @@ If running the service without Docker, you need to install the tool:
   ```bash
   cd AFRelay
   ```
-3. Startup FastAPI
+3. Install dependencies
+  ```bash
+  pip install -r requirements.txt
+  ```
+4. Startup FastAPI
   ```bash
   uvicorn service.api.app:app --reload
   ```
@@ -90,7 +94,7 @@ If running the service without Docker, you need to install the tool:
   ```bash
   curl -i http://127.0.0.1:8000/health/readiness
   ```
-5. See OpenAPI docs
+6. See OpenAPI docs
   ```bash
   http://localhost:8000/docs
   ```
