@@ -10,6 +10,9 @@ service/app_certs/*
 # Ignore venv
 /venv
 
+# Ignore .env
+.env
+
 # Ignore cache files
 __pycache__/
 *.pyc
