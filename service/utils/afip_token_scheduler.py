@@ -15,19 +15,21 @@ async def run_job():
     logger.info("Starting job: verifying token expiration")
 
     if not xml_exists("loginTicketRequest.xml"):
-        await generate_afip_access_token()
-        return
+        token_generation_status = await generate_afip_access_token()
     
     if xml_exists("loginTicketResponse.xml"):
         if is_expired("loginTicketResponse.xml", time_provider):
-            await generate_afip_access_token()
-            return
+            token_generation_status = await generate_afip_access_token()           
         
     if not xml_exists("loginTicketResponse.xml"):
-        await generate_afip_access_token()
-        return
-        
-    logger.info("Token is still valid. Job finished.")
+        token_generation_status = await generate_afip_access_token()      
+   
+    if token_generation_status["status"] == "success":
+        logger.info("Token is still valid. Job finished.")
+    else:
+        logger.info("Couldn't generate token by scheduler.")
+
+    return
 
 
 def start_scheduler():
