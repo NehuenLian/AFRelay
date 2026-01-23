@@ -1,7 +1,7 @@
+## AFRelay: Microservicio de Facturación con Integración a la Agencia Tributaria Argentina
+
 [![CI](https://github.com/NehuenLian/AFRelay/actions/workflows/tests.yml/badge.svg)](https://github.com/NehuenLian/AFRelay/actions/workflows/tests.yml)
 [![coverage](https://img.shields.io/codecov/c/github/NehuenLian/AFRelay?label=coverage&token=20WL0URAGI)](https://codecov.io/github/NehuenLian/AFRelay)
-
-# AFRelay: Microservicio de Facturación con Integración a la Agencia Tributaria Argentina
 
 **AFRelay** Es un middleware que evita al desarrollador armar XML y que deja comunicarse con AFIP como si fuera una API REST.  
 Gratis. Sin infraestructura Closed-Source. Sin que el desarrollador tenga que involucrarse con XML ni SOAP.

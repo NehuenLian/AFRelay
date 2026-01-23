@@ -1,7 +1,7 @@
+## AFRelay: Billing Microservice with Integration to the Argentine Tax Agency
+
 [![CI](https://github.com/NehuenLian/AFRelay/actions/workflows/tests.yml/badge.svg)](https://github.com/NehuenLian/AFRelay/actions/workflows/tests.yml)
 [![coverage](https://img.shields.io/codecov/c/github/NehuenLian/AFRelay?label=coverage&token=20WL0URAGI)](https://codecov.io/github/NehuenLian/AFRelay)
-
-# AFRelay: Billing Microservice with Integration to the Argentine Tax Agency
 
 **AFRelay** is a middleware that eliminates the need to manually build XML and lets developers work with AFIP as if it were a REST API.  
 Free. No SaaS. No closed-source infrastructure. No XML and no SOAP manipulated by the developer.
