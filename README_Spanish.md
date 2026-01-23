@@ -1,5 +1,5 @@
 [![CI](https://github.com/NehuenLian/AFRelay/actions/workflows/tests.yml/badge.svg)](https://github.com/NehuenLian/AFRelay/actions/workflows/tests.yml)
-[![codecov](https://codecov.io/github/NehuenLian/AFRelay/graph/badge.svg?token=20WL0URAGI)](https://codecov.io/github/NehuenLian/AFRelay)
+[![coverage](https://img.shields.io/codecov/c/github/NehuenLian/AFRelay?label=coverage&token=20WL0URAGI)](https://codecov.io/github/NehuenLian/AFRelay)
 
 # AFRelay: Microservicio de Facturación con Integración a la Agencia Tributaria Argentina
 
