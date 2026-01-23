@@ -1,4 +1,4 @@
-# AFRelay: Microservicio de Facturación con Integración a la Agencia Tributaria Argentina
+## AFRelay: Microservicio de Facturación con integración a la Agencia Tributaria Argentina
 
 [![CI](https://github.com/NehuenLian/AFRelay/actions/workflows/tests.yml/badge.svg)](https://github.com/NehuenLian/AFRelay/actions/workflows/tests.yml)
 [![coverage](https://img.shields.io/codecov/c/github/NehuenLian/AFRelay?label=coverage&token=20WL0URAGI)](https://codecov.io/github/NehuenLian/AFRelay)

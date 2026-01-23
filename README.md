@@ -1,4 +1,4 @@
-# AFRelay: Billing Microservice with Integration to the Argentine Tax Agency
+## AFRelay: Billing Microservice with integration to the Argentine Tax Agency
 
 [![CI](https://github.com/NehuenLian/AFRelay/actions/workflows/tests.yml/badge.svg)](https://github.com/NehuenLian/AFRelay/actions/workflows/tests.yml)
 [![coverage](https://img.shields.io/codecov/c/github/NehuenLian/AFRelay?label=coverage&token=20WL0URAGI)](https://codecov.io/github/NehuenLian/AFRelay)
