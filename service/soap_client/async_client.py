@@ -30,3 +30,11 @@ class WSFEClientManager:
     async def close(self) -> None:
         if self.__class__._client:
             await self.httpx_client.aclose()
+
+
+def wsaa_client(afip_wsdl):
+    httpx_client = httpx.AsyncClient(timeout=30.0)
+    transport = AsyncTransport(client=httpx_client)
+    client = AsyncClient(wsdl=afip_wsdl, transport=transport)
+
+    return client, httpx_client
