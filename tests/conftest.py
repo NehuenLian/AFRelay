@@ -89,7 +89,7 @@ def wsaa_manager(wsaa_httpserver_fixed_port):
 # Initialize zeep async client with mock wsdl 
 # only if httpserver is started
 @pytest_asyncio.fixture
-async def wsfe_manager(httpserver_fixed_port):
+async def wsfe_manager(wsfe_httpserver_fixed_port):
     WSFEClientManager.reset_singleton()
 
     mock_path = Path("tests") / "mocks" / "wsfe_mock.wsdl"
