@@ -59,7 +59,7 @@ Once authenticated, the authentication web service will provide two credentials:
   ```
 3. Install dependencies
   ```bash
-  pip install -r requirements.txt
+  pip install -r requirements-dev.txt
   ```
 4. Startup FastAPI
   ```bash
@@ -117,6 +117,7 @@ Once authenticated, the authentication web service will provide two credentials:
   │   ├── utils/
   │   └── xml_management/
   ├── tests/
+  ├── requirements-dev.txt
   └── requirements.txt
   ```
 

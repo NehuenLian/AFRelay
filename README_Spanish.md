@@ -63,7 +63,7 @@ Una vez obtenidos los archivos necesarios, se pueden colocar en las siguientes c
   ```
 3. Instalar dependencias
   ```bash
-  pip install -r requirements.txt
+  pip install -r requirements-dev.txt
   ```
 4. Levantar FastAPI
   ```bash
@@ -125,6 +125,7 @@ Una vez obtenidos los archivos necesarios, se pueden colocar en las siguientes c
   │   ├── utils/
   │   └── xml_management/
   ├── tests/
+  ├── requirements-dev.txt
   └── requirements.txt
   ```
 
