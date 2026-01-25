@@ -1,15 +1,19 @@
 import datetime
 import logging
 from pathlib import Path
+from unittest.mock import patch
 
+import httpx
 import pytest
 import pytest_asyncio
 from cryptography import x509
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.x509.oid import NameOID
-from httpx import AsyncClient
+from httpx import AsyncClient as httpxAsyncClient
 from pytest_httpserver import HTTPServer
+from zeep import AsyncClient as zeepAsyncClient
+from zeep.transports import AsyncTransport
 
 from config.paths import AfipPaths
 from service.api.app import app
@@ -54,8 +58,8 @@ def override_afip_paths(afip_paths, monkeypatch):
 
 # Create FastAPI testing client
 @pytest.fixture
-def client() -> AsyncClient:
-    return AsyncClient(app=app, base_url="http://test")
+def client() -> httpxAsyncClient:
+    return httpxAsyncClient(app=app, base_url="http://test")
 
 
 # Force http server at 62768 for wsfe
@@ -77,7 +81,7 @@ def wsaa_httpserver_fixed_port():
 
 
 # Initialize zeep async client for wsaa with mock wsdl 
-# only if httpserver is started
+# only if httpserver is up
 @pytest_asyncio.fixture
 def wsaa_manager(wsaa_httpserver_fixed_port):
     mock_path = Path("tests") / "mocks" / "wsfe_mock.wsdl"
@@ -86,8 +90,8 @@ def wsaa_manager(wsaa_httpserver_fixed_port):
     yield manager
 
 
-# Initialize zeep async client with mock wsdl 
-# only if httpserver is started
+# Initialize zeep async client for wsfe with mock wsdl 
+# only if httpserver is up
 @pytest_asyncio.fixture
 async def wsfe_manager(wsfe_httpserver_fixed_port):
     WSFEClientManager.reset_singleton()
@@ -99,6 +103,37 @@ async def wsfe_manager(wsfe_httpserver_fixed_port):
     await manager.close()
 
     WSFEClientManager.reset_singleton()
+
+
+# Patch functions with fakes for request_access_token_controller integration test.
+@pytest.fixture
+def patch_request_access_token_dependencies():
+
+    def fake_time_provider():
+        return (
+            1767764408,
+            "2026-01-07T05:40:08Z",
+            "2026-01-07T05:50:08Z",
+        )
+
+    def fake_wsdl_manager():
+        mock_path = Path("tests") / "mocks" / "wsaa_mock.wsdl"
+        afip_wsdl = str(mock_path.resolve())
+        return afip_wsdl
+    
+    def wsaa_client_mock(afip_wsdl):
+
+        httpx_client = httpx.AsyncClient(timeout=30.0)
+        transport = AsyncTransport(client=httpx_client)
+        client = zeepAsyncClient(wsdl=afip_wsdl, transport=transport)
+
+        return client, httpx_client
+
+    with patch("service.controllers.request_access_token_controller.get_wsaa_wsdl", fake_wsdl_manager):
+        with patch("service.controllers.request_access_token_controller.wsaa_client", wsaa_client_mock):
+            with patch("service.controllers.request_access_token_controller.generate_ntp_timestamp", fake_time_provider):
+                with patch("service.controllers.request_access_token_controller.get_as_bytes", generate_test_files):
+                    yield
 
 
 # Generate a fake private key, cert and xml 
