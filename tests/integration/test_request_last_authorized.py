@@ -35,7 +35,7 @@ async def test_consult_last_authorized_success(client: AsyncClient, wsfe_httpser
     }
 
     # Fastapi endpoint call
-    resp = await client.post("/wsfe/invoices/last-authorized", json=payload)
+    resp = await client.post("/wsfe/FECompUltimoAutorizado", json=payload)
 
     assert resp.status_code == 200
     data = resp.json()
@@ -61,7 +61,7 @@ async def test_consult_last_authorized_error(client: AsyncClient, wsfe_httpserve
     }
 
     # Fastapi endpoint call
-    resp = await client.post("/wsfe/invoices/last-authorized", json=payload)
+    resp = await client.post("/wsfe/FECompUltimoAutorizado", json=payload)
 
     assert resp.status_code == 200 # 200 its for FastAPI endpoint
     data = resp.json()

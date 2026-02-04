@@ -13,7 +13,7 @@ from service.utils.logger import logger
 
 router = APIRouter()
 
-@router.post("/wsfe/invoices")
+@router.post("/wsfe/FECAESolicitar")
 async def generate_invoice(sale_data: RootModel, jwt = Depends(verify_token)) -> dict:
     
     logger.info("Received request to generate invoice at /wsfe/invoices")
@@ -24,7 +24,7 @@ async def generate_invoice(sale_data: RootModel, jwt = Depends(verify_token)) ->
     return invoice_result
 
 
-@router.post("/wsfe/invoices/last-authorized")
+@router.post("/wsfe/FECompUltimoAutorizado")
 async def last_authorized(comp_info: InvoiceBase, jwt = Depends(verify_token)) -> dict:
 
     logger.info("Received request to fetch last authorized invoice at /wsfe/invoices/last-authorized")
@@ -35,7 +35,7 @@ async def last_authorized(comp_info: InvoiceBase, jwt = Depends(verify_token)) -
     return last_authorized_info
 
 
-@router.post("/wsfe/invoices/query")
+@router.post("/wsfe/FECompConsultar")
 async def consult_invoice(comp_info: InvoiceQueryRequest, jwt = Depends(verify_token)) -> dict:
 
     logger.info("Received request to query specific invoice at /wsfe/invoices/query")

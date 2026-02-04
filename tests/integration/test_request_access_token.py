@@ -47,7 +47,7 @@ async def test_generate_afip_access_token_success(
     with patch("service.controllers.request_access_token_controller.save_xml", xml_saver_mock):
         with patch("service.controllers.request_access_token_controller.parse_and_save_loginticketresponse", parse_and_save_loginticketresponse_mock):
                   
-            resp = await client.post("/wsaa/token")
+            resp = await client.post("/wsaa/loginCms")
 
     assert resp.status_code == 200
     data = resp.json()
@@ -79,7 +79,7 @@ async def test_generate_afip_access_token_error(
     with patch("service.controllers.request_access_token_controller.save_xml", xml_saver_mock):
         with patch("service.controllers.request_access_token_controller.parse_and_save_loginticketresponse", parse_and_save_loginticketresponse_mock):
                   
-            resp = await client.post("/wsaa/token")
+            resp = await client.post("/wsaa/loginCms")
 
     assert resp.status_code == 200
     data = resp.json()

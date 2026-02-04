@@ -50,7 +50,7 @@ async def test_consult_invoice_success(client: AsyncClient, wsfe_httpserver_fixe
     }
 
     # Fastapi endpoint call
-    resp = await client.post("/wsfe/invoices/query", json=payload)
+    resp = await client.post("/wsfe/FECompConsultar", json=payload)
 
     assert resp.status_code == 200
     data = resp.json()
@@ -77,7 +77,7 @@ async def test_consult_invoice_error(client: AsyncClient, wsfe_httpserver_fixed_
     }
 
     # Fastapi endpoint call
-    resp = await client.post("/wsfe/invoices/query", json=payload)
+    resp = await client.post("/wsfe/FECompConsultar", json=payload)
 
     assert resp.status_code == 200 # 200 its for FastAPI endpoint
     data = resp.json()

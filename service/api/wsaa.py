@@ -7,7 +7,7 @@ from service.utils.logger import logger
 
 router = APIRouter()
 
-@router.post("/wsaa/token")
+@router.post("/wsaa/loginCms")
 async def renew_access_token(jwt = Depends(verify_token)) -> dict:
     
     logger.info("Received request to generate invoice at /wsfe/invoices")
