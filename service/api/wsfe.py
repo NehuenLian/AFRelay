@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends
 
-from service.api.models.fecae_solicitar import RootModel
-from service.api.models.invoice_query import InvoiceBase, InvoiceQueryRequest
+from service.api.models.fecae_solicitar import FECAESolicitar
+from service.api.models.invoice_query import (FECompConsultar,
+                                              FECompUltimoAutorizado)
 from service.payload_builder.builder import (add_auth_to_payload, build_auth,
                                              build_fecomp_req)
 from service.soap_client.async_client import WSFEClientManager
@@ -16,7 +17,7 @@ afip_wsdl = get_wsfe_wsdl()
 
 
 @router.post("/wsfe/FECAESolicitar")
-async def fecae_solicitar(sale_data: RootModel, jwt = Depends(verify_token)) -> dict:
+async def fecae_solicitar(sale_data: FECAESolicitar, jwt = Depends(verify_token)) -> dict:
     
     logger.info("Received request to generate invoice at /wsfe/FECAESolicitar")
 
@@ -34,7 +35,7 @@ async def fecae_solicitar(sale_data: RootModel, jwt = Depends(verify_token)) -> 
 
 
 @router.post("/wsfe/FECompUltimoAutorizado")
-async def fe_comp_ultimo_autorizado(sale_data: InvoiceBase, jwt = Depends(verify_token)) -> dict:
+async def fe_comp_ultimo_autorizado(sale_data: FECompUltimoAutorizado, jwt = Depends(verify_token)) -> dict:
     logger.info("Received request to generate invoice at /wsfe/FECompUltimoAutorizado")
 
     sale_data = sale_data.model_dump()
@@ -53,7 +54,7 @@ async def fe_comp_ultimo_autorizado(sale_data: InvoiceBase, jwt = Depends(verify
 
 
 @router.post("/wsfe/FECompConsultar")
-async def fe_comp_consultar(comp_info: InvoiceQueryRequest, jwt = Depends(verify_token)) -> dict:
+async def fe_comp_consultar(comp_info: FECompConsultar, jwt = Depends(verify_token)) -> dict:
     logger.info("Received request to query specific invoice at /wsfe/FECompConsultar")
 
     comp_info = comp_info.model_dump()
