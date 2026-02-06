@@ -3,11 +3,16 @@ from pydantic import BaseModel
 
 class InvoiceBaseQuery(BaseModel):
     Cuit: int
-    PtoVta: int
-    CbteTipo: int
+
+class FECAEAConsultar(InvoiceBaseQuery):
+    Periodo: int
+    Orden: int
 
 class FECompConsultar(InvoiceBaseQuery):
+    PtoVta: int
+    CbteTipo: int
     CbteNro: int
 
 class FECompUltimoAutorizado(InvoiceBaseQuery):
-    pass
+    PtoVta: int
+    CbteTipo: int
