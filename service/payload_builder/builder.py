@@ -1,5 +1,4 @@
 from service.utils.logger import logger
-from service.xml_management.xml_builder import extract_token_and_sign_from_xml
 
 
 # Used in:
