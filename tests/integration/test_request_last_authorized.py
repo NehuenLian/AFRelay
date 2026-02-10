@@ -29,7 +29,9 @@ async def test_consult_last_authorized_success(client: AsyncClient, wsfe_httpser
 
     # Payload
     payload = {
-        "Cuit": 30740253022,
+        "Auth": {
+            "Cuit": 30740253022
+        },
         "PtoVta": 1,
         "CbteTipo": 6
     }
@@ -55,7 +57,9 @@ async def test_consult_last_authorized_error(client: AsyncClient, wsfe_httpserve
 
     # Payload
     payload = {
-        "Cuit": 30740253022,
+        "Auth": {
+            "Cuit": 30740253022
+        },
         "PtoVta": 1,
         "CbteTipo": 6
     }

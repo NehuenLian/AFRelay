@@ -43,7 +43,9 @@ async def test_consult_invoice_success(client: AsyncClient, wsfe_httpserver_fixe
 
     # Payload
     payload = {
-        "Cuit": 30740253022,
+        "Auth": {
+            "Cuit": 30740253022
+        },
         "PtoVta": 1,
         "CbteTipo": 6,
         "CbteNro": 100,
@@ -70,7 +72,9 @@ async def test_consult_invoice_error(client: AsyncClient, wsfe_httpserver_fixed_
 
     # Payload
     payload = {
-        "Cuit": 30740253022,
+        "Auth": {
+            "Cuit": 30740253022
+        },
         "PtoVta": 1,
         "CbteTipo": 6,
         "CbteNro": 100,
