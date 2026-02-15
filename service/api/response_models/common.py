@@ -1,6 +1,13 @@
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
+
+class Obs(BaseModel):
+    Code: int
+    Msg: str | None = None
+
+class Observaciones(BaseModel):
+    obs: list[Obs] | None = Field(None, alias="Obs")
 
 class Evt(BaseModel):
     Code: int
