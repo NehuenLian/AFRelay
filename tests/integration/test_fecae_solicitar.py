@@ -1,7 +1,7 @@
 import pytest
 from httpx import AsyncClient
 
-SOAP_RESPONSE = """
+SOAP_RESPONSE = """<?xml version="1.0" encoding="utf-8"?>
 <soap-env:Envelope
     xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"
     xmlns:ar="http://ar.gov.afip.dif.FEV1/">
@@ -16,15 +16,17 @@ SOAP_RESPONSE = """
                     <ar:FchProceso>20251226123045</ar:FchProceso>
                     <ar:CantReg>1</ar:CantReg>
                     <ar:Resultado>A</ar:Resultado>
-                    <ar:Reproceso/>
                 </ar:FeCabResp>
-                <ar:Events>
-                    <ar:Evt>
-                        <ar:Code>1</ar:Code>
-                        <ar:Msg>Evento de prueba</ar:Msg>
-                    </ar:Evt>
-                </ar:Events>
-                <ar:Errors/>
+                <ar:FeDetResp>
+                    <ar:FECAEDetResponse>
+                        <ar:Concepto>1</ar:Concepto>
+                        <ar:DocTipo>99</ar:DocTipo>
+                        <ar:DocNro>0</ar:DocNro>
+                        <ar:CbteDesde>2</ar:CbteDesde>
+                        <ar:CbteHasta>2</ar:CbteHasta>
+                        <ar:Resultado>A</ar:Resultado>
+                    </ar:FECAEDetResponse>
+                </ar:FeDetResp>
             </ar:FECAESolicitarResult>
         </ar:FECAESolicitarResponse>
     </soap-env:Body>
