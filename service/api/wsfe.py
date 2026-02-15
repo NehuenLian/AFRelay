@@ -2,25 +2,22 @@ from fastapi import APIRouter, Depends
 
 from service.api.request_models.fe_comp_consultar import FECompConsultar
 from service.api.request_models.fecae_solicitar import FECAESolicitar
-from service.api.request_models.fecaea_reg_informativo import FECAEARegInformativo
-from service.api.request_models.simple_models import (FECAEAConsultar,
-                                              FECAEASinMovimientoConsultar,
-                                              FECAEASinMovimientoInformar,
-                                              FECAEASolicitar,
-                                              FECompTotXRequest,
-                                              FECompUltimoAutorizado,
-                                              FEParamGetActividades,
-                                              FEParamGetCondicionIvaReceptor,
-                                              FEParamGetCotizacion,
-                                              FEParamGetPtosVenta,
-                                              FEParamGetTiposCbte,
-                                              FEParamGetTiposConcepto,
-                                              FEParamGetTiposDoc,
-                                              FEParamGetTiposIva,
-                                              FEParamGetTiposMonedas,
-                                              FEParamGetTiposOpcional,
-                                              FEParamGetTiposPaises,
-                                              FEParamGetTiposTributos)
+from service.api.request_models.fecaea_reg_informativo import \
+    FECAEARegInformativo
+from service.api.request_models.simple_models import (
+    FECAEAConsultar, FECAEASinMovimientoConsultar, FECAEASinMovimientoInformar,
+    FECAEASolicitar, FECompTotXRequest, FECompUltimoAutorizado,
+    FEParamGetActividades, FEParamGetCondicionIvaReceptor,
+    FEParamGetCotizacion, FEParamGetPtosVenta, FEParamGetTiposCbte,
+    FEParamGetTiposConcepto, FEParamGetTiposDoc, FEParamGetTiposIva,
+    FEParamGetTiposMonedas, FEParamGetTiposOpcional, FEParamGetTiposPaises,
+    FEParamGetTiposTributos)
+from service.api.response_models.common import APIErrorResponseModel
+from service.api.response_models.fe_comp_consultar import \
+    FECompConsultarResponse
+from service.api.response_models.fecae_solicitar import FECAESolicitarResponse
+from service.api.response_models.simple_models import (
+    FECompTotXRequestResponse, FECompUltimoAutorizadoResponse)
 from service.payload_builder.builder import add_auth_to_payload
 from service.soap_client.async_client import WSFEClientManager
 from service.soap_client.wsdl.wsdl_manager import get_wsfe_wsdl
@@ -33,8 +30,8 @@ router = APIRouter()
 afip_wsdl = get_wsfe_wsdl()
 
 
-@router.post("/wsfe/FECAESolicitar")
-async def fecae_solicitar(data: FECAESolicitar, jwt = Depends(verify_token)) -> dict:
+@router.post("/wsfe/FECAESolicitar", response_model=FECAESolicitarResponse | APIErrorResponseModel)
+async def fecae_solicitar(data: FECAESolicitar ,jwt = Depends(verify_token)) -> dict:
     
     logger.info("Received request to generate invoice at /wsfe/FECAESolicitar")
 
@@ -51,7 +48,7 @@ async def fecae_solicitar(data: FECAESolicitar, jwt = Depends(verify_token)) -> 
     return result
 
 
-@router.post("/wsfe/FECompTotXRequest")
+@router.post("/wsfe/FECompTotXRequest", response_model=FECompTotXRequestResponse | APIErrorResponseModel)
 async def fecomp_totx_request(data: FECompTotXRequest, jwt = Depends(verify_token)) -> dict:
 
     data = data.model_dump(by_alias=True, exclude_none=True)
@@ -67,7 +64,7 @@ async def fecomp_totx_request(data: FECompTotXRequest, jwt = Depends(verify_toke
     return result
 
 
-@router.post("/wsfe/FECompUltimoAutorizado")
+@router.post("/wsfe/FECompUltimoAutorizado", response_model=FECompUltimoAutorizadoResponse | APIErrorResponseModel)
 async def fe_comp_ultimo_autorizado(data: FECompUltimoAutorizado, jwt = Depends(verify_token)) -> dict:
     logger.info("Received request to generate invoice at /wsfe/FECompUltimoAutorizado")
 
@@ -84,7 +81,7 @@ async def fe_comp_ultimo_autorizado(data: FECompUltimoAutorizado, jwt = Depends(
     return result
 
 
-@router.post("/wsfe/FECompConsultar")
+@router.post("/wsfe/FECompConsultar", response_model=FECompConsultarResponse | APIErrorResponseModel)
 async def fe_comp_consultar(comp_info: FECompConsultar, jwt = Depends(verify_token)) -> dict:
     logger.info("Received request to query specific invoice at /wsfe/FECompConsultar")
 
