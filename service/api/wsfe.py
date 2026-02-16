@@ -12,14 +12,18 @@ from service.api.request_models.simple_models import (
     FEParamGetTiposConcepto, FEParamGetTiposDoc, FEParamGetTiposIva,
     FEParamGetTiposMonedas, FEParamGetTiposOpcional, FEParamGetTiposPaises,
     FEParamGetTiposTributos)
-from service.api.response_models.fecaea_solicitar import FECAEASolicitarResponse
 from service.api.response_models.common import APIErrorResponseModel
 from service.api.response_models.fe_comp_consultar import \
     FECompConsultarResponse
 from service.api.response_models.fecae_solicitar import FECAESolicitarResponse
-from service.api.response_models.fecaea_reg_informativo import FECAEARegInformativoResponse
+from service.api.response_models.fecaea_reg_informativo import \
+    FECAEARegInformativoResponse
+from service.api.response_models.fecaea_solicitar import \
+    FECAEASolicitarResponse
 from service.api.response_models.simple_models import (
-    FECompTotXRequestResponse, FECompUltimoAutorizadoResponse)
+    FECAEAConsultarResponse, FECAEASinMovimientoConsultarResponse,
+    FECAEASinMovimientoInformarResponse, FECompTotXRequestResponse,
+    FECompUltimoAutorizadoResponse)
 from service.payload_builder.builder import add_auth_to_payload
 from service.soap_client.async_client import WSFEClientManager
 from service.soap_client.wsdl.wsdl_manager import get_wsfe_wsdl
@@ -132,7 +136,7 @@ async def fecaea_solicitar(data: FECAEASolicitar, jwt = Depends(verify_token)) -
     return result
 
 
-@router.post("/wsfe/FECAEASinMovimientoConsultar")
+@router.post("/wsfe/FECAEASinMovimientoConsultar", response_model=FECAEASinMovimientoConsultarResponse | APIErrorResponseModel)
 async def fecaea_sin_movimiento_consultar(data: FECAEASinMovimientoConsultar, jwt = Depends(verify_token)) -> dict:
 
     data = data.model_dump(by_alias=True, exclude_none=True)
@@ -148,7 +152,7 @@ async def fecaea_sin_movimiento_consultar(data: FECAEASinMovimientoConsultar, jw
     return result
 
 
-@router.post("/wsfe/FECAEASinMovimientoInformar")
+@router.post("/wsfe/FECAEASinMovimientoInformar", response_model=FECAEASinMovimientoInformarResponse | APIErrorResponseModel)
 async def fecaea_sin_movimiento_informar(data: FECAEASinMovimientoInformar, jwt = Depends(verify_token)) -> dict:
 
     data = data.model_dump(by_alias=True, exclude_none=True)
@@ -164,7 +168,7 @@ async def fecaea_sin_movimiento_informar(data: FECAEASinMovimientoInformar, jwt 
     return result
 
 
-@router.post("/wsfe/FECAEAConsultar")
+@router.post("/wsfe/FECAEAConsultar", response_model=FECAEAConsultarResponse | APIErrorResponseModel)
 async def fecaea_consultar(data: FECAEAConsultar, jwt = Depends(verify_token)) -> dict:
 
     data = data.model_dump(by_alias=True, exclude_none=True)
