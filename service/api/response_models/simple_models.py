@@ -181,3 +181,148 @@ class FEParamGetTiposOpcionalResult(BaseModel):
 class FEParamGetTiposOpcionalResponse(BaseModel):
     status: str
     response: FEParamGetTiposOpcionalResult
+
+# ========================================================
+
+class ConceptoTipo(BaseModel):
+    Id: int
+    Desc: str | None = None
+    FchDesde: str | None = None
+    FchHasta: str | None = None
+
+class FEParamGetTiposConceptoResult(BaseModel):
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    concepto_tipo: list[ConceptoTipo] | None = Field(None, alias="ConceptoTipo")
+
+    events: Events | None = Field(None, alias="Events")
+    errors: Errors | None = Field(None, alias="Errors")
+
+class FEParamGetTiposConceptoResponse(BaseModel):
+    status: str
+    response: FEParamGetTiposConceptoResult
+
+# ========================================================
+
+class PtoVenta(BaseModel):
+    Id: int
+    EmisionTipo: str | None = None
+    Bloqueado: str | None = None
+    FchBaja: str | None = None
+
+class FEParamGetPtosVentaResult(BaseModel):
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    pto_venta: list[PtoVenta] | None = Field(None, alias="PtoVenta")
+
+    events: Events | None = Field(None, alias="Events")
+    errors: Errors | None = Field(None, alias="Errors")
+
+class FEParamGetPtosVentaResponse(BaseModel):
+    status: str
+    response: FEParamGetPtosVentaResult
+
+# ========================================================
+
+class CbteTipo(BaseModel):
+    Id: int
+    Desc: str | None = None
+    FchDesde: str | None = None
+    FchHasta: str | None = None
+
+class FEParamGetTiposCbteResult(BaseModel):
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    cbte_tipo: list[CbteTipo] | None = Field(None, alias="CbteTipo")
+
+    events: Events | None = Field(None, alias="Events")
+    errors: Errors | None = Field(None, alias="Errors")
+
+class FEParamGetTiposCbteResponse(BaseModel):
+    status: str
+    response: FEParamGetTiposCbteResult
+
+# ========================================================
+
+class CondicionIvaReceptor(BaseModel):
+    Id: int
+    Desc: str | None = None
+    Cpm_Clase: str | None = None
+
+class FEParamGetCondicionIvaReceptorResult(BaseModel):
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    condicion_iva_receptor: list[CondicionIvaReceptor] | None = Field(None, alias="CondicionIvaReceptor")
+
+    events: Events | None = Field(None, alias="Events")
+    errors: Errors | None = Field(None, alias="Errors")
+
+class FEParamGetCondicionIvaReceptorResponse(BaseModel):
+    status: str
+    response: FEParamGetCondicionIvaReceptorResult
+
+# ========================================================
+
+class DocTipo(BaseModel):
+    Id: int
+    Desc: str | None = None
+    FchDesde: str | None = None
+    FchHasta: str | None = None
+
+class FEParamGetTiposDocResult(BaseModel):
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    doc_tipo: list[DocTipo] | None = Field(None, alias="DocTipo")
+
+    events: Events | None = Field(None, alias="Events")
+    errors: Errors | None = Field(None, alias="Errors")
+
+class FEParamGetTiposDocResponse(BaseModel):
+    status: str
+    response: FEParamGetTiposDocResult
+
+# ========================================================
+
+class PaisTipo(BaseModel):
+    Id: int
+    Desc: str | None = None
+
+class FEParamGetTiposPaisesResult(BaseModel):
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    pais_tipo: list[PaisTipo] | None = Field(None, alias="PaisTipo")
+
+    events: Events | None = Field(None, alias="Events")
+    errors: Errors | None = Field(None, alias="Errors")
+
+class FEParamGetTiposPaisesResponse(BaseModel):
+    status: str
+    response: FEParamGetTiposPaisesResult
+
+# ========================================================
+
+class ActividadesTipo(BaseModel):
+    Id: int
+    Orden: int
+    Desc: str | None = None
+
+class FEParamGetActividadesResult(BaseModel):
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    actividades_tipo: list[ActividadesTipo] | None = Field(None, alias="ActividadesTipo")
+
+    events: Events | None = Field(None, alias="Events")
+    errors: Errors | None = Field(None, alias="Errors")
+
+class FEParamGetActividadesResponse(BaseModel):
+    status: str
+    response: FEParamGetActividadesResult
+
+# ========================================================
