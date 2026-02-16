@@ -77,3 +77,23 @@ class FECAEAConsultarResult(BaseModel):
 class FECAEAConsultarResponse(BaseModel):
     status: str 
     response: FECAEAConsultarResult
+
+# ========================================================
+
+class ResultGet(BaseModel):
+    MonId: str
+    MonCotiz: float
+    FchCotiz: str
+
+class FECotizacionResult(BaseModel):
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    result_get: ResultGet | None = Field(None, alias="ResultGet")
+
+    errors: Errors | None = Field(None, alias="Errors")
+    events: Events | None = Field(None, alias="Events")
+
+class FEParamGetCotizacionResponse(BaseModel):
+    status: str   
+    response: FECotizacionResult

@@ -23,7 +23,7 @@ from service.api.response_models.fecaea_solicitar import \
 from service.api.response_models.simple_models import (
     FECAEAConsultarResponse, FECAEASinMovimientoConsultarResponse,
     FECAEASinMovimientoInformarResponse, FECompTotXRequestResponse,
-    FECompUltimoAutorizadoResponse)
+    FECompUltimoAutorizadoResponse, FEParamGetCotizacionResponse)
 from service.payload_builder.builder import add_auth_to_payload
 from service.soap_client.async_client import WSFEClientManager
 from service.soap_client.wsdl.wsdl_manager import get_wsfe_wsdl
@@ -184,7 +184,7 @@ async def fecaea_consultar(data: FECAEAConsultar, jwt = Depends(verify_token)) -
     return result
 
 
-@router.post("/wsfe/FEParamGetCotizacion")
+@router.post("/wsfe/FEParamGetCotizacion", response_model=FEParamGetCotizacionResponse | APIErrorResponseModel)
 async def fe_param_get_cotization(data: FEParamGetCotizacion, jwt = Depends(verify_token)) -> dict:
 
     data = data.model_dump(by_alias=True, exclude_none=True)
