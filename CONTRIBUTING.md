@@ -48,7 +48,7 @@ Writing docs is dead boring and one of the big problems with many open source pr
 
 2. Suggesting Enhacements
 
-We love new ideas. Before writing code, please open an issue labeled `enhancement` so we can discuss the implementation and ensure it aligns with the project's roadmap.
+- We love new ideas. Before writing code, please open an issue labeled `enhancement` so we can discuss the implementation and ensure it aligns with the project's roadmap.
 
 3. Pull Requests (PRs)
 - Keep your PRs focused. Small, single-purpose PRs are much easier to review.
