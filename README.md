@@ -7,6 +7,12 @@
   <a href="https://codecov.io/github/NehuenLian/AFRelay">
     <img src="https://img.shields.io/codecov/c/github/NehuenLian/AFRelay?label=coverage&token=20WL0URAGI" alt="coverage">
   </a>
+  <a href="https://github.com/NehuenLian/AFRelay/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/NehuenLian/AFRelay" alt="License">
+  </a>
+  <a href="https://github.com/NehuenLian/AFRelay/issues">
+    <img src="https://img.shields.io/github/issues/NehuenLian/AFRelay" alt="Issues">
+  </a>
 </p>
 
 <p align="center">
