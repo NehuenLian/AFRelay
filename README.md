@@ -8,9 +8,9 @@
 </p>
 
 <p align="center">
-  <a href="https://af-relay-docs.vercel.app/intro">Documentacion</a>
+  <a href="https://af-relay-docs.vercel.app/intro">Documentation</a>
   ·
-  <a href="https://github.com/NehuenLian/AFRelay-E2E-Manual-tests">Repo de tests E2E</a>
+  <a href="https://github.com/NehuenLian/AFRelay-E2E-Manual-tests">E2E tests repo</a>
 </p>
 
 

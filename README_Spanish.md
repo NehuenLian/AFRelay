@@ -11,7 +11,7 @@
 <p align="center">
   <a href="https://af-relay-docs.vercel.app/intro">Documentacion</a>
   ·
-  <a href="https://github.com/NehuenLian/AFRelay-E2E-Manual-tests">Repo de tests E2E</a>
+  <a href="https://github.com/NehuenLian/AFRelay-E2E-Manual-tests">Repositorio tests E2E</a>
 </p>
 
 **AFRelay** Es un middleware que evita al desarrollador tratar con el ecosistema XML y que permite comunicarse con AFIP como si fuera una API REST.  
