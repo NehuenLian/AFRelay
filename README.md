@@ -1,24 +1,16 @@
 # AFRelay: Billing Microservice with integration to the Argentine Tax Agency
 
 <p align="center">
-  <a href="https://github.com/NehuenLian/AFRelay/actions/workflows/tests.yml">
-    <img src="https://github.com/NehuenLian/AFRelay/actions/workflows/tests.yml/badge.svg" alt="CI">
-  </a>
-  <a href="https://codecov.io/github/NehuenLian/AFRelay">
-    <img src="https://img.shields.io/codecov/c/github/NehuenLian/AFRelay?label=coverage&token=20WL0URAGI" alt="coverage">
-  </a>
-  <a href="https://github.com/NehuenLian/AFRelay/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/NehuenLian/AFRelay" alt="License">
-  </a>
-  <a href="https://github.com/NehuenLian/AFRelay/issues">
-    <img src="https://img.shields.io/github/issues/NehuenLian/AFRelay" alt="Issues">
-  </a>
+  <img src="https://github.com/NehuenLian/AFRelay/actions/workflows/tests.yml/badge.svg" alt="CI">
+  <img src="https://img.shields.io/codecov/c/github/NehuenLian/AFRelay?label=coverage&token=20WL0URAGI" alt="coverage">
+  <img src="https://img.shields.io/github/license/NehuenLian/AFRelay" alt="License">
+  <img src="https://img.shields.io/github/issues/NehuenLian/AFRelay" alt="Issues">
 </p>
 
 <p align="center">
-  <a href="https://af-relay-docs.vercel.app/intro">Documentation</a>
+  <a href="https://af-relay-docs.vercel.app/intro">Documentacion</a>
   ·
-  <a href="https://github.com/NehuenLian/AFRelay-E2E-Manual-tests">E2E Tests repo</a>
+  <a href="https://github.com/NehuenLian/AFRelay-E2E-Manual-tests">Repo de tests E2E</a>
 </p>
 
 
