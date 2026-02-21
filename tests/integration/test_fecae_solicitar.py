@@ -4,7 +4,7 @@ from .soap_responses import FECAESolicitarResponse
 
 
 @pytest.mark.asyncio
-async def test_request_invoice_success(client: AsyncClient, wsfe_httpserver_fixed_port, wsfe_manager, override_auth):
+async def test_fecae_solicitar_success(client: AsyncClient, wsfe_httpserver_fixed_port, wsfe_manager, override_auth):
 
     # Configure http server
     wsfe_httpserver_fixed_port.expect_request("/soap", method="POST").respond_with_data(
@@ -55,7 +55,7 @@ async def test_request_invoice_success(client: AsyncClient, wsfe_httpserver_fixe
 
 # Generic error only for test the API behavior in error cases. Exceptions are already tested in unit tests.
 @pytest.mark.asyncio
-async def test_request_invoice_error(client: AsyncClient, wsfe_httpserver_fixed_port, wsfe_manager, override_auth):
+async def test_fecae_solicitar_error(client: AsyncClient, wsfe_httpserver_fixed_port, wsfe_manager, override_auth):
 
     # Configure http server
     wsfe_httpserver_fixed_port.expect_request("/not_existent", method="POST").respond_with_data(

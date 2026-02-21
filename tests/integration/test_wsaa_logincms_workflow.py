@@ -6,7 +6,7 @@ from .soap_responses import loginCmsResponse
 
 
 @pytest.mark.asyncio
-async def test_generate_afip_access_token_success(
+async def test_login_cms_success(
                                                 client: AsyncClient, 
                                                 wsaa_httpserver_fixed_port, 
                                                 patch_request_access_token_dependencies,
@@ -36,7 +36,7 @@ async def test_generate_afip_access_token_success(
 
 
 @pytest.mark.asyncio
-async def test_generate_afip_access_token_error(
+async def test_login_cms_error(
                                                 client: AsyncClient, 
                                                 wsaa_httpserver_fixed_port, 
                                                 patch_request_access_token_dependencies,
