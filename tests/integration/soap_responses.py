@@ -121,3 +121,36 @@ FECompConsultarResponse = """<?xml version="1.0" encoding="UTF-8"?>
     </soap:Body>
 </soap:Envelope>
 """
+
+FECAEARegInformativoResponse = """<?xml version="1.0" encoding="utf-8"?>
+<soap-env:Envelope
+    xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:ar="http://ar.gov.afip.dif.FEV1/">
+    <soap-env:Header/>
+    <soap-env:Body>
+        <FECAEARegInformativoResponse>
+            <FECAEARegInformativoResult>
+                <FeCabResp>
+                    <Cuit>30740253022</Cuit>
+                    <PtoVta>1</PtoVta>
+                    <CbteTipo>1</CbteTipo> 
+                    <FchProceso>20260221101530</FchProceso>
+                    <CantReg>1</CantReg>
+                    <Resultado>A</Resultado> 
+                </FeCabResp>
+                <FeDetResp>
+                    <FECAEADetResponse>
+                        <Concepto>1</Concepto> 
+                        <DocTipo>80</DocTipo> 
+                        <DocNro>20123456789</DocNro>
+                        <CbteDesde>1</CbteDesde>
+                        <CbteHasta>1</CbteHasta>
+                        <Resultado>A</Resultado>
+                        <CAEA>26081234567890</CAEA> 
+                    </FECAEADetResponse>
+                </FeDetResp>
+            </FECAEARegInformativoResult>
+        </FECAEARegInformativoResponse>
+    </soap-env:Body>
+</soap-env:Envelope>
+"""
