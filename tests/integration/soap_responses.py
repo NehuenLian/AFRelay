@@ -35,6 +35,7 @@ FECAESolicitarResponse = """<?xml version="1.0" encoding="utf-8"?>
                     <FchProceso>20251226123045</FchProceso>
                     <CantReg>1</CantReg>
                     <Resultado>A</Resultado>
+                    <Reproceso>N</Reproceso>
                 </FeCabResp>
                 <FeDetResp>
                     <FECAEDetResponse>
@@ -43,8 +44,10 @@ FECAESolicitarResponse = """<?xml version="1.0" encoding="utf-8"?>
                         <DocNro>0</DocNro>
                         <CbteDesde>2</CbteDesde>
                         <CbteHasta>2</CbteHasta>
-                        <CbteFch>20260222</CbteFch>
+                        <CbteFch>20260224</CbteFch>
                         <Resultado>A</Resultado>
+                        <CAE>80050022488317</CAE>
+                        <CAEFchVto>20260306</CAEFchVto>
                     </FECAEDetResponse>
                 </FeDetResp>
             </FECAESolicitarResult>
@@ -90,33 +93,41 @@ FECompConsultarResponse = """<?xml version="1.0" encoding="UTF-8"?>
     <soap:Body>
         <FECompConsultarResponse xmlns="http://ar.gov.afip.dif.FEV1/">
             <FECompConsultarResult>
-                <ResultGet>
-                    <Concepto>1</Concepto>
-                    <DocTipo>80</DocTipo>
-                    <DocNro>20123456789</DocNro>
-                    <CbteDesde>100</CbteDesde>
-                    <CbteHasta>100</CbteHasta>
-                    <CbteFch>20260109</CbteFch>
-                    <ImpTotal>100.00</ImpTotal>
-                    <ImpTotConc>0.00</ImpTotConc>
-                    <ImpNeto>100.00</ImpNeto>
-                    <ImpOpEx>0.00</ImpOpEx>
-                    <ImpTrib>0.00</ImpTrib>
-                    <ImpIVA>21.00</ImpIVA>
-                    <MonId>PES</MonId>
-                    <MonCotiz>1.000</MonCotiz>
-                    <CondicionIVAReceptorId>5</CondicionIVAReceptorId>
-
-                    <Resultado>A</Resultado>
-                    <CodAutorizacion>74123456789012</CodAutorizacion>
-                    <EmisionTipo>CAE</EmisionTipo>
-                    <FchVto>20260119</FchVto>
-                    <FchProceso>20260109120000</FchProceso>
-                    
-                    <PtoVta>1</PtoVta>
-                    <CbteTipo>6</CbteTipo>
-                </ResultGet>
-                </FECompConsultarResult>
+            <ResultGet>
+                <Concepto>1</Concepto>
+                <DocTipo>96</DocTipo>
+                <DocNro>12345678</DocNro>
+                <CbteDesde>100</CbteDesde>
+                <CbteHasta>100</CbteHasta>
+                <CbteFch>20251226</CbteFch>
+                <ImpTotal>1210</ImpTotal>
+                <ImpTotConc>0</ImpTotConc>
+                <ImpNeto>1000</ImpNeto>
+                <ImpOpEx>0</ImpOpEx>
+                <ImpTrib>0</ImpTrib>
+                <ImpIVA>210</ImpIVA>
+                <FchServDesde/>
+                <FchServHasta/>
+                <FchVtoPago/>
+                <MonId>PES</MonId>
+                <MonCotiz>1</MonCotiz>
+                <CondicionIVAReceptorId>5</CondicionIVAReceptorId>
+                <Iva>
+                    <AlicIva>
+                    <Id>5</Id>
+                    <BaseImp>1000</BaseImp>
+                    <Importe>210</Importe>
+                    </AlicIva>
+                </Iva>
+                <Resultado>A</Resultado>
+                <CodAutorizacion>75522302377893</CodAutorizacion>
+                <EmisionTipo>CAE</EmisionTipo>
+                <FchVto>20260105</FchVto>
+                <FchProceso>20251226010205</FchProceso>
+                <PtoVta>1</PtoVta>
+                <CbteTipo>6</CbteTipo>
+            </ResultGet>
+            </FECompConsultarResult>
         </FECompConsultarResponse>
     </soap:Body>
 </soap:Envelope>
@@ -197,3 +208,4 @@ FECAEASinMovimientoConsultarResponse = """<?xml version="1.0" encoding="utf-8"?>
     </soap:Body>
 </soap:Envelope>
 """
+
