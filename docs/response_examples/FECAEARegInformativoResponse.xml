@@ -28,6 +28,9 @@
             <CbteFch>20260224</CbteFch>
             <Resultado>A</Resultado>
             <CAEA>87080030400901</CAEA>
+            <Obs>
+              <Observaciones />
+            </Obs>
           </FECAEADetResponse>
         </FeDetResp>
         
