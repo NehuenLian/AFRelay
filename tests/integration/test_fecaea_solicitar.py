@@ -1,7 +1,7 @@
 import pytest
 from httpx import AsyncClient
 
-from .soap_responses import FECAEASolicitarResponse
+from tests.integration.soap_responses import FECAEASolicitarResponse
 
 
 @pytest.mark.asyncio

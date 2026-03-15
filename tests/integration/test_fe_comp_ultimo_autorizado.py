@@ -1,7 +1,7 @@
 import pytest
 from httpx import AsyncClient
 
-from .soap_responses import FeCompUltimoAutorizadoResponse
+from tests.integration.soap_responses import FeCompUltimoAutorizadoResponse
 
 
 @pytest.mark.asyncio

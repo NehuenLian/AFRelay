@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 from zeep import AsyncClient
 
-from .soap_responses import loginCmsResponse
+from tests.integration.soap_responses import loginCmsResponse
 
 
 @pytest.mark.asyncio
