@@ -6,6 +6,7 @@ service/app_certs/*
 /host_certs/*
 !host_certs/.gitkeep
 !host_certs/README.md
+/src/wsfev1/soap_client/templates
 
 # Ignore venv
 /venv
