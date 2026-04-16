@@ -1,9 +1,7 @@
-
-
+from jinja2 import Template
 from lxml import etree
 
 from src.shared.paths_config import paths
-from src.shared.utils.logger import logger
 
 
 def extract_token_and_sign_from_xml() -> tuple[str, str]:
@@ -19,3 +17,10 @@ def extract_token_and_sign_from_xml() -> tuple[str, str]:
     sign = sign_label.text
 
     return token, sign
+
+def build_xml(data: dict, xml: str) -> str:
+
+    xml = xml.strip()
+    template = Template(xml)
+
+    return template.render(**data)
