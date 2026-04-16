@@ -1,10 +1,13 @@
+import html
 import os
 from datetime import datetime, timezone
 
+from jinja2 import Template
 from lxml import etree
 
 from src.shared.paths_config import paths
 from src.shared.utils.logger import logger
+from src.wsaa.soap_client import templates
 
 
 def build_login_ticket_request(time_provider) -> "etree._Element":
@@ -28,18 +31,10 @@ def build_login_ticket_request(time_provider) -> "etree._Element":
 def parse_and_save_loginticketresponse(login_ticket_response: str, xml_saver) -> None:
 
     root = etree.fromstring(login_ticket_response.encode("utf-8"))
-    header = etree.SubElement(root, "header")
-    source = etree.SubElement(header, "source")
-    destination = etree.SubElement(header, "destination")
-    unique_id = etree.SubElement(header, "uniqueId")
-    generation_time_label = etree.SubElement(header, "generationTime")
-    expiration_time_label = etree.SubElement(header, "expirationTime")
+    xml_no_cleaned = root.find('.//{http://wsaa.view.sua.dvadac.desein.afip.gov}loginCmsReturn').text
+    xml_real = etree.fromstring(html.unescape(xml_no_cleaned).encode("utf-8"))
 
-    credentials = etree.SubElement(root, "credentials")
-    token = etree.SubElement(credentials, "token")
-    sign = etree.SubElement(credentials, "sign")
-
-    xml_saver(root, "loginTicketResponse.xml")
+    xml_saver(xml_real, "loginTicketResponse.xml")
 
 def is_expired(xml_name: str, time_provider) -> bool:
 
@@ -69,6 +64,7 @@ def save_xml(root, xml_name: str) -> None:
     os.makedirs(os.path.dirname(path), exist_ok=True)
     tree = etree.ElementTree(root)
     tree.write(path, pretty_print=True, xml_declaration=True, encoding="UTF-8")
+
     logger.info(f"{xml_name} successfully saved.")
 
 def xml_exists(xml_name: str) -> bool:
@@ -78,3 +74,11 @@ def xml_exists(xml_name: str) -> bool:
         return True
     else:
         return False
+
+def build_xml_to_send(b64_cms: str) -> str:
+
+    loginCms_xml = templates.loginCms
+    loginCms_xml_stripped = loginCms_xml.strip()
+    template = Template(loginCms_xml_stripped)
+
+    return template.render(CMS=b64_cms)
