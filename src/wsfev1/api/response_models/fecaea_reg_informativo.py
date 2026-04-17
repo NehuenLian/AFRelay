@@ -48,5 +48,11 @@ class FECAEARegInformativoResult(BaseModel):
     errors: Errors | None = Field(None, alias="Errors")
 
 class FECAEARegInformativoResponse(BaseModel):
-    status: str
-    response: FECAEARegInformativoResult
+    FECAEARegInformativoResult: FECAEARegInformativoResult
+
+class FECAEARegInformativoMainClass(BaseModel):
+    FECAEARegInformativoResponse: FECAEARegInformativoResponse
+
+class FECAEARegInformativoFullResponse(BaseModel):
+    status: str 
+    response: FECAEARegInformativoMainClass | None
