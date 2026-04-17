@@ -2,7 +2,7 @@ import httpx
 import pytest
 from zeep.exceptions import Fault, TransportError, XMLSyntaxError
 
-from src.wsfev1.soap_client.wsfev1 import consult_afip_wsfe
+from src.wsfev1.soap_client.wsfev1 import consult_afip_wsfev1
 
 
 # ===== Success =======
@@ -14,7 +14,7 @@ async def test_consult_afip_wsfe_success():
         return { "status" : "success",
                 "response" : afip_response }
 
-    response = await consult_afip_wsfe(make_request_fake, "TestMethod")
+    response = await consult_afip_wsfev1(make_request_fake, "TestMethod")
 
     assert response["status"] == "success"
 # ====================
@@ -27,7 +27,7 @@ async def test_consult_afip_wsfe_connection_error():
     async def make_request_fake():
         raise httpx.ConnectError("Network error")
 
-    response = await consult_afip_wsfe(make_request_fake, "TestMethod")
+    response = await consult_afip_wsfev1(make_request_fake, "TestMethod")
 
     assert response["status"] == "error"
     assert response["error"]["error_type"] == "Network error"
@@ -39,7 +39,7 @@ async def test_consult_afip_wsfe_timeout():
     async def make_request_fake():
         raise httpx.TimeoutException("Network error")
 
-    response = await consult_afip_wsfe(make_request_fake, "TestMethod")
+    response = await consult_afip_wsfev1(make_request_fake, "TestMethod")
 
     assert response["status"] == "error"
     assert response["error"]["error_type"] == "Network error"
@@ -51,7 +51,7 @@ async def test_consult_afip_wsfe_transport_error():
     async def make_request_fake():
         raise TransportError("HTTP Error")
 
-    response = await consult_afip_wsfe(make_request_fake, "TestMethod")
+    response = await consult_afip_wsfev1(make_request_fake, "TestMethod")
 
     assert response["status"] == "error"
     assert response["error"]["error_type"] == "HTTP Error"
@@ -63,7 +63,7 @@ async def test_consult_afip_wsfe_soap_fault():
     async def make_request_fake():
         raise Fault("SOAPFault")
 
-    response = await consult_afip_wsfe(make_request_fake, "TestMethod")
+    response = await consult_afip_wsfev1(make_request_fake, "TestMethod")
 
     assert response["status"] == "error"
     assert response["error"]["error_type"] == "SOAPFault"
@@ -75,7 +75,7 @@ async def test_consult_afip_wsfe_xml_syntax_error():
     async def make_request_fake():
         raise XMLSyntaxError("Invalid AFIP response")
 
-    response = await consult_afip_wsfe(make_request_fake, "TestMethod")
+    response = await consult_afip_wsfev1(make_request_fake, "TestMethod")
 
     assert response["status"] == "error"
     assert response["error"]["error_type"] == "Invalid AFIP response"
