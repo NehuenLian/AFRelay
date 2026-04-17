@@ -1,6 +1,6 @@
-from pydantic import BaseModel, ConfigDict, Field
+from typing import Dict
 
-from src.wsfev1.api.response_models.common import Errors, Events
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class Observaciones(BaseModel):
@@ -8,7 +8,21 @@ class Observaciones(BaseModel):
     Msg: str 
 
 class Obs(BaseModel):
-    Observaciones: list[Observaciones]
+    Observaciones: list[Observaciones] | Dict
+
+class Evt(BaseModel):
+    Code: int
+    Msg: str
+
+class Events(BaseModel):
+    Evt: list[Evt] | Dict
+
+class Err(BaseModel):
+    Code: int
+    Msg: str
+
+class Errors(BaseModel):
+    Err: list[Err] | Dict
 
 class FECAEDetResponse(BaseModel):
 
@@ -24,10 +38,10 @@ class FECAEDetResponse(BaseModel):
     CAE: str | None = None
     CAEFchVto: str | None = None
 
-    obs: Obs | None = Field(None, alias="Obs")
+    obs : Obs | None = Field(None, alias="Obs")
 
 class FeDetResp(BaseModel):
-    FECAEDetResponse: list[FECAEDetResponse]
+    FECAEDetResponse : list[FECAEDetResponse] | Dict
 
 class FeCabResp(BaseModel):
     Cuit: int
@@ -42,12 +56,18 @@ class FECAESolicitarResult(BaseModel):
 
     model_config = ConfigDict(populate_by_name=True)
 
-    fe_cab_resp: FeCabResp | None = Field(None, alias="FeCabResp")
-    fe_det_resp: FeDetResp | None = Field(None, alias="FeDetResp")
+    FeCabResp: FeCabResp
+    FeDetResp: FeDetResp
 
-    events: Events | None = Field(None, alias="Events")
     errors: Errors | None = Field(None, alias="Errors")
+    events: Events | None = Field(None, alias="Events")
 
 class FECAESolicitarResponse(BaseModel):
+    FECAESolicitarResult: FECAESolicitarResult
+
+class FECAESolicitarMainClass(BaseModel):
+    FECAESolicitarResponse: FECAESolicitarResponse
+
+class FECAESolicitarFullResponse(BaseModel):
     status: str
-    response: FECAESolicitarResult
+    response: FECAESolicitarMainClass 
