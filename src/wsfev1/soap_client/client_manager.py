@@ -1,29 +1,19 @@
+
 import httpx
-from zeep import AsyncClient
-from zeep.plugins import HistoryPlugin
-from zeep.transports import AsyncTransport
 
 
 class WSFEClientManager:
     _instance = None
     _client = None
 
-    def __new__(cls, wsdl):
+    def __new__(cls):
         if cls._instance is None:
             cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self, wsdl):
+    def __init__(self):
         if self.__class__._client is None:
-
-            self.history = HistoryPlugin()
-            self.httpx_client = httpx.AsyncClient(timeout=20.0)
-            self.transport = AsyncTransport(client=self.httpx_client)
-            self.__class__._client = AsyncClient(
-                                        wsdl=wsdl, 
-                                        transport=self.transport, 
-                                        plugins=[self.history]
-                                    )
+            self.__class__._client = httpx.AsyncClient()
 
     def get_client(self): 
         return self.__class__._client
@@ -35,4 +25,6 @@ class WSFEClientManager:
 
     async def close(self) -> None:
         if self.__class__._client:
-            await self.httpx_client.aclose()
+            await self.__class__._client.aclose()
+            self.__class__._instance = None
+            self.__class__._client = None
