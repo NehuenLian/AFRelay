@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from src.wsfev1.payload_builder.builder import add_auth_to_payload
+from src.shared.payload_builder.builder import add_auth_to_payload
 
 
 def test_add_auth_to_payload():
