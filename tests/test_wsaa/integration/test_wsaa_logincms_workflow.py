@@ -1,19 +1,18 @@
 from unittest.mock import MagicMock, patch
 
+import httpx
 import pytest
-from zeep import AsyncClient
 
-from tests.test_wsaa.mocks.soap_responses import loginCmsResponse
+from tests.test_wsaa.mocks.xml_mocks import loginCmsResponse
 
 
 @pytest.mark.asyncio
 async def test_login_cms_success(
-                                                client: AsyncClient, 
-                                                wsaa_httpserver_fixed_port, 
-                                                patch_request_access_token_dependencies,
-                                                wsaa_manager, 
-                                                override_auth
-                                            ):
+                                    client: httpx.AsyncClient, 
+                                    wsaa_httpserver_fixed_port, 
+                                    patch_request_access_token_dependencies,
+                                    override_auth
+                                ):
 
     # Configure http server
     wsaa_httpserver_fixed_port.expect_request("/soap", method="POST").respond_with_data(
@@ -39,12 +38,11 @@ async def test_login_cms_success(
 # Generic error only for test the API behavior in error cases. Exceptions are already tested in unit tests.
 @pytest.mark.asyncio
 async def test_login_cms_error(
-                                                client: AsyncClient, 
-                                                wsaa_httpserver_fixed_port, 
-                                                patch_request_access_token_dependencies,
-                                                wsaa_manager, 
-                                                override_auth
-                                            ):
+                                    client: httpx.AsyncClient, 
+                                    wsaa_httpserver_fixed_port, 
+                                    patch_request_access_token_dependencies,
+                                    override_auth
+                                ):
 
     # Configure http server
     wsaa_httpserver_fixed_port.expect_request("/not_existent", method="POST").respond_with_data(
