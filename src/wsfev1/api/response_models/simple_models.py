@@ -1,7 +1,8 @@
+from typing import Dict
+
 from pydantic import BaseModel, ConfigDict, Field
 
-from src.wsfev1.api.response_models.common import (Errors, Events,
-                                                   FECAEASinMov, Observaciones)
+from src.wsfev1.api.response_models.common import Errors, Events, Observaciones
 
 # ========================================================
 
@@ -15,8 +16,14 @@ class FECompTotXRequestResult(BaseModel):
     errors: Errors | None = Field(None, alias="Errors")
 
 class FECompTotXRequestResponse(BaseModel):
+    FECompTotXRequestResult: FECompTotXRequestResult
+
+class FECompTotXRequestMainClass(BaseModel):
+    FECompTotXRequestResponse: FECompTotXRequestResponse
+
+class FECompTotXRequestFullResponse(BaseModel):
     status: str
-    response: FECompTotXRequestResult
+    response: FECompTotXRequestMainClass
 
 # ========================================================
 
@@ -32,8 +39,14 @@ class FECompUltimoAutorizadoResult(BaseModel):
     errors: Errors | None = Field(None, alias="Errors")
 
 class FECompUltimoAutorizadoResponse(BaseModel):
+    FECompUltimoAutorizadoResult: FECompUltimoAutorizadoResult
+
+class FECompUltimoAutorizadoMainClass(BaseModel):
+    FECompUltimoAutorizadoResponse: FECompUltimoAutorizadoResponse
+
+class FECompUltimoAutorizadoFullResponse(BaseModel):
     status: str
-    response: FECompUltimoAutorizadoResult
+    response: FECompUltimoAutorizadoMainClass
 
 # ========================================================
 
@@ -62,13 +75,24 @@ class FECAEASolicitarResult(BaseModel):
     errors: Errors | None = Field(None, alias="Errors")
 
 class FECAEASolicitarResponse(BaseModel):
-    status: str
-    response: FECAEASolicitarResult
+    FECAEASolicitarResult: FECAEASolicitarResult
+
+class FECAEASolicitarMainClass(BaseModel):
+    FECAEASolicitarResponse: FECAEASolicitarResponse
+
+class FECAEASolicitarFullResponse(BaseModel):
+    status: str 
+    response: FECAEASolicitarMainClass
 
 # ========================================================
 
+class FECAEASinMov(BaseModel):
+    CAEA: str
+    FchProceso: str
+    PtoVta: int
+
 class ResultGet(BaseModel):
-    fecaea_sin_mov: list[FECAEASinMov] | None = Field(None, alias="FECAEASinMov")
+    fecaea_sin_mov: list[FECAEASinMov] | Dict | None = Field(None, alias="FECAEASinMov")
 
 class FECAEASinMovimientoConsultarResult(BaseModel):
 
@@ -76,12 +100,18 @@ class FECAEASinMovimientoConsultarResult(BaseModel):
 
     result_get: ResultGet | None = Field(None, alias="ResultGet")
 
-    events: Events | None = Field(None, alias="Events")
     errors: Errors | None = Field(None, alias="Errors")
+    events: Events | None = Field(None, alias="Events")
 
 class FECAEASinMovimientoConsultarResponse(BaseModel):
+    FECAEASinMovimientoConsultarResult: FECAEASinMovimientoConsultarResult
+
+class FECAEASinMovimientoConsultarMainClass(BaseModel):
+    FECAEASinMovimientoConsultarResponse: FECAEASinMovimientoConsultarResponse
+
+class FECAEASinMovimientoConsultarFullResponse(BaseModel):
     status: str
-    response: FECAEASinMovimientoConsultarResult
+    response: FECAEASinMovimientoConsultarMainClass
 
 # ========================================================
 
@@ -89,14 +119,23 @@ class FECAEASinMovimientoInformarResult(BaseModel):
 
     model_config = ConfigDict(populate_by_name=True)
 
-    fecaea_sin_mov: list[FECAEASinMov] | None = Field(None, alias="FECAEASinMov")
+    CAEA: str
+    FchProceso: str
+    PtoVta: int
+    Resultado: str
 
     events: Events | None = Field(None, alias="Events")
     errors: Errors | None = Field(None, alias="Errors")
 
 class FECAEASinMovimientoInformarResponse(BaseModel):
+    FECAEASinMovimientoInformarResult: FECAEASinMovimientoInformarResult
+
+class FECAEASinMovimientoInformarMainClass(BaseModel):
+    FECAEASinMovimientoInformarResponse: FECAEASinMovimientoInformarResponse
+
+class FECAEASinMovimientoInformarFullResponse(BaseModel):
     status: str
-    response: FECAEASinMovimientoConsultarResult
+    response: FECAEASinMovimientoInformarMainClass
 
 # ========================================================
 
@@ -122,17 +161,23 @@ class FECAEAConsultarResult(BaseModel):
     fecaea_get_response: ResultGet | None = Field(None, alias="ResultGet")
 
 class FECAEAConsultarResponse(BaseModel):
-    status: str 
-    response: FECAEAConsultarResult
+    FECAEAConsultarResult: FECAEAConsultarResult
+
+class FECAEAConsultarMainClass(BaseModel):
+    FECAEAConsultarResponse: FECAEAConsultarResponse
+
+class FECAEAConsultarFullResponse(BaseModel):
+    status: str
+    response: FECAEAConsultarMainClass
 
 # ========================================================
 
 class ResultGet(BaseModel):
-    MonId: str
+    MonId: str | None = None
     MonCotiz: float
-    FchCotiz: str
+    FchCotiz: str | None = None
 
-class FECotizacionResult(BaseModel):
+class FEParamGetCotizacionResult(BaseModel):
 
     model_config = ConfigDict(populate_by_name=True)
 
@@ -142,8 +187,14 @@ class FECotizacionResult(BaseModel):
     events: Events | None = Field(None, alias="Events")
 
 class FEParamGetCotizacionResponse(BaseModel):
-    status: str   
-    response: FECotizacionResult
+    FEParamGetCotizacionResult: FEParamGetCotizacionResult
+
+class FEParamGetCotizacionMainClass(BaseModel):
+    FEParamGetCotizacionResponse: FEParamGetCotizacionResponse
+
+class FEParamGetCotizacionFullResponse(BaseModel):
+    status: str
+    response: FEParamGetCotizacionMainClass
 
 # ========================================================
 
@@ -169,8 +220,14 @@ class FEParamGetTiposTributosResult(BaseModel):
     errors: Errors | None = Field(None, alias="Errors")
 
 class FEParamGetTiposTributosResponse(BaseModel):
-    status: str
-    response: FEParamGetTiposTributosResult
+    FEParamGetTiposTributosResult: FEParamGetTiposTributosResult
+
+class FEParamGetTiposTributosMainClass(BaseModel):
+    FEParamGetTiposTributosResponse: FEParamGetTiposTributosResponse
+
+class FEParamGetTiposTributosFullResponse(BaseModel):
+    status: str 
+    response: FEParamGetTiposTributosMainClass
 
 # ========================================================
 
@@ -196,8 +253,14 @@ class FEParamGetTiposMonedasResult(BaseModel):
     errors: Errors | None = Field(None, alias="Errors")
 
 class FEParamGetTiposMonedasResponse(BaseModel):
-    status: str
-    response: FEParamGetTiposMonedasResult
+    FEParamGetTiposMonedasResult: FEParamGetTiposMonedasResult
+
+class FEParamGetTiposMonedasMainClass(BaseModel):
+    FEParamGetTiposMonedasResponse: FEParamGetTiposMonedasResponse
+
+class FEParamGetTiposMonedasFullResponse(BaseModel):
+    status: str 
+    response: FEParamGetTiposMonedasMainClass
 
 # ========================================================
 
@@ -223,8 +286,14 @@ class FEParamGetTiposIvaResult(BaseModel):
     errors: Errors | None = Field(None, alias="Errors")
 
 class FEParamGetTiposIvaResponse(BaseModel):
-    status: str
-    response: FEParamGetTiposIvaResult
+    FEParamGetTiposIvaResult: FEParamGetTiposIvaResult
+
+class FEParamGetTiposIvaMainClass(BaseModel):
+    FEParamGetTiposIvaResponse: FEParamGetTiposIvaResponse
+
+class FEParamGetTiposIvaFullResponse(BaseModel):
+    status: str 
+    response: FEParamGetTiposIvaMainClass
 
 # ========================================================
 
@@ -250,8 +319,14 @@ class FEParamGetTiposOpcionalResult(BaseModel):
     errors: Errors | None = Field(None, alias="Errors")
 
 class FEParamGetTiposOpcionalResponse(BaseModel):
+    FEParamGetTiposOpcionalResult: FEParamGetTiposOpcionalResult
+
+class FEParamGetTiposOpcionalMainClass(BaseModel):
+    FEParamGetTiposOpcionalResponse: FEParamGetTiposOpcionalResponse
+
+class FEParamGetTiposOpcionalFullResponse(BaseModel):
     status: str
-    response: FEParamGetTiposOpcionalResult
+    response: FEParamGetTiposOpcionalMainClass
 
 # ========================================================
 
@@ -277,8 +352,14 @@ class FEParamGetTiposConceptoResult(BaseModel):
     errors: Errors | None = Field(None, alias="Errors")
 
 class FEParamGetTiposConceptoResponse(BaseModel):
+    FEParamGetTiposConceptoResult: FEParamGetTiposConceptoResult
+
+class FEParamGetTiposConceptoMainClass(BaseModel):
+    FEParamGetTiposConceptoResponse: FEParamGetTiposConceptoResponse
+
+class FEParamGetTiposConceptoFullResponse(BaseModel):
     status: str
-    response: FEParamGetTiposConceptoResult
+    response: FEParamGetTiposConceptoMainClass
 
 # ========================================================
 
@@ -304,8 +385,14 @@ class FEParamGetPtosVentaResult(BaseModel):
     errors: Errors | None = Field(None, alias="Errors")
 
 class FEParamGetPtosVentaResponse(BaseModel):
+    FEParamGetPtosVentaResult: FEParamGetPtosVentaResult
+
+class FEParamGetPtosVentaMainClass(BaseModel):
+    FEParamGetPtosVentaResponse: FEParamGetPtosVentaResponse
+
+class FEParamGetPtosVentaFullResponse(BaseModel):
     status: str
-    response: FEParamGetPtosVentaResult
+    response: FEParamGetPtosVentaMainClass
 
 # ========================================================
 
@@ -331,15 +418,21 @@ class FEParamGetTiposCbteResult(BaseModel):
     errors: Errors | None = Field(None, alias="Errors")
 
 class FEParamGetTiposCbteResponse(BaseModel):
+    FEParamGetTiposCbteResult: FEParamGetTiposCbteResult
+
+class FEParamGetTiposCbteMainClass(BaseModel):
+    FEParamGetTiposCbteResponse: FEParamGetTiposCbteResponse
+
+class FEParamGetTiposCbteFullResponse(BaseModel):
     status: str
-    response: FEParamGetTiposCbteResult
+    response: FEParamGetTiposCbteMainClass
 
 # ========================================================
 
 class CondicionIvaReceptor(BaseModel):
     Id: int
     Desc: str | None = None
-    Cpm_Clase: str | None = None
+    ClaseCmp: str | None = None
 
 class ResultGet(BaseModel):
 
@@ -357,8 +450,14 @@ class FEParamGetCondicionIvaReceptorResult(BaseModel):
     errors: Errors | None = Field(None, alias="Errors")
 
 class FEParamGetCondicionIvaReceptorResponse(BaseModel):
+    FEParamGetCondicionIvaReceptorResult: FEParamGetCondicionIvaReceptorResult
+
+class FEParamGetCondicionIvaReceptorMainClass(BaseModel):
+    FEParamGetCondicionIvaReceptorResponse: FEParamGetCondicionIvaReceptorResponse
+
+class FEParamGetCondicionIvaReceptorFullResponse(BaseModel):
     status: str
-    response: FEParamGetCondicionIvaReceptorResult
+    response: FEParamGetCondicionIvaReceptorMainClass
 
 # ========================================================
 
@@ -384,8 +483,14 @@ class FEParamGetTiposDocResult(BaseModel):
     errors: Errors | None = Field(None, alias="Errors")
 
 class FEParamGetTiposDocResponse(BaseModel):
-    status: str
-    response: FEParamGetTiposDocResult
+    FEParamGetTiposDocResult: FEParamGetTiposDocResult
+
+class FEParamGetTiposDocMainClass(BaseModel):
+    FEParamGetTiposDocResponse: FEParamGetTiposDocResponse
+
+class FEParamGetTiposDocFullResponse(BaseModel):
+    status: str 
+    response: FEParamGetTiposDocMainClass
 
 # ========================================================
 
@@ -397,7 +502,7 @@ class ResultGet(BaseModel):
 
     model_config = ConfigDict(populate_by_name=True)
     
-    pais_tipo: list[PaisTipo] | None = Field(None, alias="PaisTipo")
+    pais_tipo: list[PaisTipo] | Dict | None = Field(None, alias="PaisTipo")
 
 class FEParamGetTiposPaisesResult(BaseModel):
 
@@ -409,8 +514,14 @@ class FEParamGetTiposPaisesResult(BaseModel):
     errors: Errors | None = Field(None, alias="Errors")
 
 class FEParamGetTiposPaisesResponse(BaseModel):
+    FEParamGetTiposPaisesResult: FEParamGetTiposPaisesResult
+
+class FEParamGetTiposPaisesMainClass(BaseModel):
+    FEParamGetTiposPaisesResponse: FEParamGetTiposPaisesResponse
+
+class FEParamGetTiposPaisesFullResponse(BaseModel):
     status: str
-    response: FEParamGetTiposPaisesResult
+    response: FEParamGetTiposPaisesMainClass
 
 # ========================================================
 
@@ -432,7 +543,13 @@ class FEParamGetActividadesResult(BaseModel):
     errors: Errors | None = Field(None, alias="Errors")
 
 class FEParamGetActividadesResponse(BaseModel):
+    FEParamGetActividadesResult: FEParamGetActividadesResult
+
+class FEParamGetActividadesMainClass(BaseModel):
+    FEParamGetActividadesResponse: FEParamGetActividadesResponse
+
+class FEParamGetActividadesFullResponse(BaseModel):
     status: str
-    response: FEParamGetActividadesResult
+    response: FEParamGetActividadesMainClass
 
 # ========================================================
