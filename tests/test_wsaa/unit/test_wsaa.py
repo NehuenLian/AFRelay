@@ -1,20 +1,23 @@
+from unittest.mock import AsyncMock, MagicMock
+
 import httpx
 import pytest
-from zeep.exceptions import Fault, TransportError, XMLSyntaxError
 
 from src.wsaa.soap_client.wsaa import consult_afip_wsaa
+from tests.test_wsaa.mocks.xml_mocks import loginCms
 
 
 # ===== Success =======
 @pytest.mark.asyncio
-async def test_consult_afip_wsfe_success():
+async def test_consult_afip_wsaa_success():
 
-    async def make_request_fake():
-        afip_response = { "invoice" : "approved" }
-        return { "status" : "success",
-                "response" : afip_response }
+    mock_response = MagicMock()
+    mock_response.json.return_value = {"status" : "success", "response" : "approved"}
 
-    response = await consult_afip_wsaa(make_request_fake, "TestMethod")
+    mock_client = AsyncMock()
+    mock_client.post.return_value = mock_response
+
+    response = await consult_afip_wsaa(loginCms, client=mock_client)
 
     assert response["status"] == "success"
 # ====================
@@ -22,61 +25,71 @@ async def test_consult_afip_wsfe_success():
 
 # ===== Errors =======
 @pytest.mark.asyncio
-async def test_consult_afip_wsfe_connection_error():
+async def test_consult_afip_wsaa_transport_error():
 
-    async def make_request_fake():
-        raise httpx.ConnectError("Network error")
+    mock_client = AsyncMock()
+    m_request = MagicMock(spec=httpx.Request)
+    m_response = MagicMock(spec=httpx.Response)
 
-    response = await consult_afip_wsaa(make_request_fake, "TestMethod")
+    error_real = httpx.HTTPStatusError(
+        "HTTP Error",
+        request=m_request,
+        response=m_response
+    )
 
-    assert response["status"] == "error"
-    assert response["error"]["error_type"] == "Network error"
+    mock_client.post.side_effect = error_real
 
-
-@pytest.mark.asyncio
-async def test_consult_afip_wsfe_timeout():
-
-    async def make_request_fake():
-        raise httpx.TimeoutException("Network error")
-
-    response = await consult_afip_wsaa(make_request_fake, "TestMethod")
-
-    assert response["status"] == "error"
-    assert response["error"]["error_type"] == "Network error"
-
-
-@pytest.mark.asyncio
-async def test_consult_afip_wsfe_transport_error():
-
-    async def make_request_fake():
-        raise TransportError("HTTP Error")
-
-    response = await consult_afip_wsaa(make_request_fake, "TestMethod")
+    response = await consult_afip_wsaa(loginCms, client=mock_client)
 
     assert response["status"] == "error"
     assert response["error"]["error_type"] == "HTTP Error"
 
 
 @pytest.mark.asyncio
-async def test_consult_afip_wsfe_soap_fault():
+async def test_consult_afip_wsaa_connection_error():
 
-    async def make_request_fake():
-        raise Fault("SOAPFault")
+    mock_client = AsyncMock()
+    m_request = MagicMock(spec=httpx.Request)
 
-    response = await consult_afip_wsaa(make_request_fake, "TestMethod")
+    error_real = httpx.ConnectError(
+        "Network error",
+        request=m_request,
+    )
+
+    mock_client.post.side_effect = error_real
+
+    response = await consult_afip_wsaa(loginCms, client=mock_client)
 
     assert response["status"] == "error"
-    assert response["error"]["error_type"] == "SOAPFault"
+    assert response["error"]["error_type"] == "Network error"
 
 
 @pytest.mark.asyncio
-async def test_consult_afip_wsfe_xml_syntax_error():
+async def test_consult_afip_wsaa_timeout():
 
-    async def make_request_fake():
-        raise XMLSyntaxError("Invalid AFIP response")
+    mock_client = AsyncMock()
+    m_request = MagicMock(spec=httpx.Request)
 
-    response = await consult_afip_wsaa(make_request_fake, "TestMethod")
+    error_real = httpx.TimeoutException(
+        "Timeout Error",
+        request=m_request,
+    )
+
+    mock_client.post.side_effect = error_real
+
+    response = await consult_afip_wsaa(loginCms, client=mock_client)
 
     assert response["status"] == "error"
-    assert response["error"]["error_type"] == "Invalid AFIP response"
-# ====================
+    assert response["error"]["error_type"] == "Network error"
+
+
+@pytest.mark.asyncio
+async def test_consult_afip_wsaa_timeout():
+
+    mock_client = AsyncMock()
+    mock_client.post.side_effect = Exception
+
+    response = await consult_afip_wsaa(loginCms, client=mock_client)
+
+    assert response["status"] == "error"
+    assert response["error"]["error_type"] == "unknown"
