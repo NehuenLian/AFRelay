@@ -1,5 +1,4 @@
 import datetime
-import logging
 from pathlib import Path
 from unittest.mock import patch
 
@@ -10,22 +9,12 @@ from cryptography import x509
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.x509.oid import NameOID
-from httpx import AsyncClient as httpxAsyncClient
 from pytest_httpserver import HTTPServer
-from zeep import AsyncClient as zeepAsyncClient
-from zeep.transports import AsyncTransport
 
 from src.shared.api.jwt_validator import verify_token
 from src.shared.main import app
 from src.shared.paths_config.paths import AfipPaths
-from src.wsaa.soap_client.client_manager import wsaa_client
 from src.wsfev1.soap_client.client_manager import WSFEClientManager
-
-# Zeep logs for debugging
-# logging.getLogger("zeep").setLevel(logging.DEBUG)
-# logging.getLogger("zeep.transports").setLevel(logging.DEBUG)
-# logging.getLogger("zeep.client").setLevel(logging.DEBUG)
-# logging.getLogger("zeep.wsdl").setLevel(logging.DEBUG)
 
 
 # Avoid endpoint Depends=verify_jwt() verification (all features)
@@ -59,8 +48,8 @@ def override_afip_paths(afip_paths, monkeypatch):
 
 # Create FastAPI testing client (all features)
 @pytest.fixture
-def client() -> httpxAsyncClient:
-    return httpxAsyncClient(app=app, base_url="http://test")
+def client() -> httpx.AsyncClient:
+    return httpx.AsyncClient(app=app, base_url="http://test")
 
 
 # Force http server at 62768 for wsfe
@@ -81,29 +70,28 @@ def wsaa_httpserver_fixed_port():
     server.stop()
 
 
-# Initialize zeep async client for wsaa with mock wsdl (wsaa)
-# only if httpserver is up
-@pytest_asyncio.fixture
-def wsaa_manager(wsaa_httpserver_fixed_port):
-    mock_path = Path("tests") / "test_wsaa" / "mocks" / "wsaa_mock.wsdl"
-    afip_wsdl = str(mock_path.resolve())
-    manager = wsaa_client(afip_wsdl)
-    yield manager
-
-
-# Initialize zeep async client for wsfe with mock wsdl (wsfe)
+# Initialize zeep async client for wsfe
 # only if httpserver is up
 @pytest_asyncio.fixture
 async def wsfe_manager(wsfe_httpserver_fixed_port):
     WSFEClientManager.reset_singleton()
 
-    mock_path = Path("tests") / "test_wsfev1" / "mocks" / "wsfe_mock.wsdl"
-    afip_wsdl = str(mock_path.resolve())
-    manager = WSFEClientManager(afip_wsdl)
+    manager = WSFEClientManager()
     yield manager
     await manager.close()
 
     WSFEClientManager.reset_singleton()
+
+
+# Patch server url with fake http server for wsfev1 service. (wsfe)
+@pytest.fixture
+def patch_url_wsfev1_dependencies():
+
+    def wsfev1_client_mock():
+        return "http://localhost:62768/soap"
+
+    with patch("src.wsfev1.soap_client.wsfev1.get_wsfe_url", wsfev1_client_mock):
+        yield
 
 
 # Patch functions with fakes for request_access_token_controller integration test. (wsaa)
@@ -117,24 +105,13 @@ def patch_request_access_token_dependencies():
             "2026-01-07T05:50:08Z",
         )
 
-    def fake_wsdl_manager():
-        mock_path = Path("tests") / "test_wsaa" / "mocks" / "wsaa_mock.wsdl"
-        afip_wsdl = str(mock_path.resolve())
-        return afip_wsdl
-    
-    def wsaa_client_mock(afip_wsdl):
+    def wsaa_client_mock():
+        return "http://localhost:23592/soap"
 
-        httpx_client = httpx.AsyncClient(timeout=30.0)
-        transport = AsyncTransport(client=httpx_client)
-        client = zeepAsyncClient(wsdl=afip_wsdl, transport=transport)
-
-        return client, httpx_client
-
-    with patch("src.wsaa.controllers.request_access_token_controller.get_wsaa_wsdl", fake_wsdl_manager):
-        with patch("src.wsaa.controllers.request_access_token_controller.wsaa_client", wsaa_client_mock):
-            with patch("src.wsaa.controllers.request_access_token_controller.generate_ntp_timestamp", fake_time_provider):
-                with patch("src.wsaa.controllers.request_access_token_controller.get_as_bytes", generate_test_files):
-                    yield
+    with patch("src.wsaa.controllers.request_access_token_controller.generate_ntp_timestamp", fake_time_provider):
+        with patch("src.wsaa.controllers.request_access_token_controller.get_as_bytes", generate_test_files):
+            with patch("src.wsaa.soap_client.wsaa.get_wsaa_url", wsaa_client_mock):
+                yield
 
 
 # Generate a fake private key, cert and xml (wsaa)
