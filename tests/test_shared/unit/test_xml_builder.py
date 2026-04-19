@@ -22,8 +22,7 @@ def test_parse_and_save_loginticketresponse():
 
     loginTicketResponse_mock = """<?xml version="1.0" encoding="UTF-8"?>
     <root xmlns:ns0="http://wsaa.view.sua.dvadac.desein.afip.gov">
-        <ns0:loginCmsReturn>
-            &lt;?xml version='1.0' encoding='UTF-8'?&gt;
+        <ns0:loginCmsReturn>&lt;?xml version='1.0' encoding='UTF-8'?&gt;
             &lt;loginTicketResponse version="1.0"&gt;
                 &lt;header&gt;
                     &lt;source&gt;CN=wsaahomo, O=AFIP, C=AR, SERIALNUMBER=CUIT 33693450239&lt;/source&gt;
@@ -36,6 +35,7 @@ def test_parse_and_save_loginticketresponse():
                     &lt;token&gt;fake_token&lt;/token&gt;
                     &lt;sign&gt;fake_sign&lt;/sign&gt;
                 &lt;/credentials&gt;
+                &lt;header&gt;&lt;source/&gt;&lt;destination/&gt;&lt;uniqueId/&gt;&lt;generationTime/&gt;&lt;expirationTime/&gt;&lt;/header&gt;&lt;credentials&gt;&lt;token/&gt;&lt;sign/&gt;&lt;/credentials&gt;
             &lt;/loginTicketResponse&gt;
         </ns0:loginCmsReturn>
     </root>
