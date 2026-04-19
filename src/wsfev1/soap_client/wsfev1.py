@@ -18,7 +18,7 @@ from src.wsfev1.soap_client.url_manager import get_wsfe_url
         wait=wait_fixed(0.5),
         before_sleep=before_sleep_log(logger, logging.WARNING),
     )
-async def consult_afip_wsfev1(xml_string, METHOD: str,  client=None) -> dict:
+async def consult_afip_wsfev1(xml_string: str, METHOD: str,  client=None) -> dict:
 
     if client is None:
         manager = WSFEClientManager()
@@ -29,13 +29,12 @@ async def consult_afip_wsfev1(xml_string, METHOD: str,  client=None) -> dict:
         'Content-Type': 'text/xml; charset=utf-8',
         'SOAPAction': f"http://ar.gov.afip.dif.FEV1/{METHOD}"
     }
-    print(f"xml_string: {xml_string}")
+
     try:
         response = await client.post(url, content=xml_string, headers=headers)
-        print(f"response: {response}")
         response.raise_for_status()
         cleaned_response = clear_response(response)
-        print(f"cleaned_response: {cleaned_response}")
+
         return {
             "status" : "success",
             "response" : cleaned_response
