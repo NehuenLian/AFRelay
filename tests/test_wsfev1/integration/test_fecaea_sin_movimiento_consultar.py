@@ -27,4 +27,4 @@ async def test_fecaea_sin_movimiento_consultar_success(client: AsyncClient, wsfe
 
     assert resp.status_code == 200
     data = resp.json()
-    assert data["status"] == "error" # TODO: Update assertion once WSDL inconsistencies are resolved; currently expecting 'error'.
+    assert data["status"] == "success" # TODO: Update assertion once WSDL inconsistencies are resolved; currently expecting 'error'.
