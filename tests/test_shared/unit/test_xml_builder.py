@@ -20,20 +20,25 @@ def test_build_login_ticket_request():
 
 def test_parse_and_save_loginticketresponse():
 
-    loginTicketResponse_mock = """<?xml version='1.0' encoding='UTF-8'?>
-    <loginTicketResponse version="1.0">
-        <header>
-            <source>CN=wsaahomo, O=AFIP, C=AR, SERIALNUMBER=CUIT 33693450239</source>
-            <destination>SERIALNUMBER=CUIT 30740253022, CN=certificadodefinitivo</destination>
-            <uniqueId>3634574819</uniqueId>
-            <generationTime>2026-01-07T02:40:09.235-03:00</generationTime>
-            <expirationTime>2026-01-07T14:40:09.235-03:00</expirationTime>
-        </header>
-        <credentials>
-            <token>fake_token</token>
-            <sign>fake_sign</sign>
-        </credentials>
-    <header><source/><destination/><uniqueId/><generationTime/><expirationTime/></header><credentials><token/><sign/></credentials></loginTicketResponse>
+    loginTicketResponse_mock = """<?xml version="1.0" encoding="UTF-8"?>
+    <root xmlns:ns0="http://wsaa.view.sua.dvadac.desein.afip.gov">
+        <ns0:loginCmsReturn>
+            &lt;?xml version='1.0' encoding='UTF-8'?&gt;
+            &lt;loginTicketResponse version="1.0"&gt;
+                &lt;header&gt;
+                    &lt;source&gt;CN=wsaahomo, O=AFIP, C=AR, SERIALNUMBER=CUIT 33693450239&lt;/source&gt;
+                    &lt;destination&gt;SERIALNUMBER=CUIT 30740253022, CN=certificadodefinitivo&lt;/destination&gt;
+                    &lt;uniqueId&gt;3634574819&lt;/uniqueId&gt;
+                    &lt;generationTime&gt;2026-01-07T02:40:09.235-03:00&lt;/generationTime&gt;
+                    &lt;expirationTime&gt;2026-01-07T14:40:09.235-03:00&lt;/expirationTime&gt;
+                &lt;/header&gt;
+                &lt;credentials&gt;
+                    &lt;token&gt;fake_token&lt;/token&gt;
+                    &lt;sign&gt;fake_sign&lt;/sign&gt;
+                &lt;/credentials&gt;
+            &lt;/loginTicketResponse&gt;
+        </ns0:loginCmsReturn>
+    </root>
     """
 
     mock_saver = MagicMock()
